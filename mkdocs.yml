@@ -1,0 +1,28 @@
+site_name: Python Портфолио — SplaidEX
+site_description: Коллекция моих полезных Python-скриптов
+site_author: SplaidEX
+
+theme:
+  name: material
+  language: ru
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Тёмная тема
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Светлая тема
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - search.suggest
+
+nav:
+  - Главная: index.md
+  - Проекты: projects.md
+  - Обо мне: about.md
