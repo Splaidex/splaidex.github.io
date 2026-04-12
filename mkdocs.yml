@@ -28,3 +28,12 @@ extra_css:
 
 markdown_extensions:
   - md_in_html
+
+extra:
+  social:
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/splaidex_python
+      name: Instagram
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/imwaited
+      name: Telegram
