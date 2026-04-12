@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600&display=swap');
+
+:root {
+  --md-primary-fg-color: #cc0000;
+  --md-accent-fg-color: #ff2222;
+  --md-default-bg-color: #000000;
+  --md-default-fg-color: #ffffff;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.md-header {
+  background: #000000;
+  border-bottom: 2px solid #cc0000;
+}
+
+h1, h2, h3 {
+  font-family: 'Share Tech Mono', monospace;
+  color: #ffffff !important;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: #cc0000;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.md-content a {
+  color: #cc0000;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.md-content a:hover {
+  color: #ff4444;
+  text-shadow: 0 0 8px #cc000088;
+}
+
+.md-button--primary {
+  background: #cc0000 !important;
+  border-color: #cc0000 !important;
+  box-shadow: 0 0 16px #cc000055;
+}
+
+.md-button--primary:hover {
+  background: #aa0000 !important;
+  box-shadow: 0 0 24px #ff000088;
+}
+
+hr {
+  border-color: #cc000044;
+}

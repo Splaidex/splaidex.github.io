@@ -26,3 +26,6 @@ nav:
   - Главная: index.md
   - Проекты: projects.md
   - Обо мне: about.md
+
+extra_css:
+  - stylesheets/extra.css
