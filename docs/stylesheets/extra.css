@@ -58,3 +58,7 @@ h1::after {
 hr {
   border-color: #cc000044;
 }
+.md-main__inner, .md-content, .md-sidebar, 
+.md-sidebar__scrollwrap, .md-nav, body {
+  background-color: #000000 !important;
+}
