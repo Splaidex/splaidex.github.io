@@ -3,6 +3,7 @@ site_description: Коллекция моих полезных Python-скрип
 site_author: SplaidEX
 
 theme:
+  custom_dir: docs/overrides
   name: material
   language: ru
   logo: assets/logo.png
