@@ -6,16 +6,18 @@ theme:
   name: material
   language: ru
   palette:
-    - scheme: default
-      primary: indigo
-      toggle:
-        icon: material/weather-night
-        name: Тёмная тема
     - scheme: slate
-      primary: indigo
+      primary: black
+      accent: red
       toggle:
         icon: material/weather-sunny
         name: Светлая тема
+    - scheme: default
+      primary: black
+      accent: red
+      toggle:
+        icon: material/weather-night
+        name: Тёмная тема
   features:
     - navigation.tabs
     - navigation.sections
