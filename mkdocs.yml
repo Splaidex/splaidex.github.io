@@ -6,18 +6,9 @@ theme:
   name: material
   language: ru
   palette:
-    - scheme: slate
-      primary: black
-      accent: red
-      toggle:
-        icon: material/weather-sunny
-        name: Светлая тема
-    - scheme: default
-      primary: black
-      accent: red
-      toggle:
-        icon: material/weather-night
-        name: Тёмная тема
+    scheme: slate
+    primary: black
+    accent: red
   features:
     - navigation.tabs
     - navigation.sections
