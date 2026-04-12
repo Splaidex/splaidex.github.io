@@ -5,6 +5,8 @@ site_author: SplaidEX
 theme:
   name: material
   language: ru
+  logo: assets/logo.png
+  favicon: assets/logo.png
   palette:
     scheme: slate
     primary: black
