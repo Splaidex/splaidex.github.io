@@ -1,0 +1,32 @@
+projects:
+  - name: SteamParser
+    description: Парсер изображений из Steam Community по названию игры
+    features:
+      - Поиск игры прямо внутри приложения
+      - Подключение через Steam API
+      - Создание папок для каждой игры
+      - Без лимитов на выгрузку
+      - GUI с анимациями на PyQt6
+    stack: PyQt6, Steam API, Python
+    github: ""
+
+  - name: JsonGenerator
+    description: Генератор JSON-файлов из CSV с автодокументацией
+    features:
+      - Загрузка CSV — на выходе готовый JSON
+      - Уникальные ключи при каждой генерации
+      - Поддержка массивов
+      - Автоматически создаёт .md с расшифровкой ключей
+      - Кастомное имя файла через GUI
+    stack: PyQt6, Python, CSV/JSON
+    github: ""
+
+  - name: WMCut
+    description: Инструмент для удаления вотермарок с видео
+    features:
+      - Превью видео прямо в приложении
+      - Выделение зоны мышкой
+      - Мультивыбор зон очистки
+      - GUI на PyQt6
+    stack: PyQt6, Python, OpenCV
+    github: ""

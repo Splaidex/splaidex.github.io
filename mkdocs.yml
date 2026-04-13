@@ -18,6 +18,10 @@ theme:
     - content.code.copy
     - search.suggest
 
+plugins:
+  - search
+  - macros
+
 nav:
   - Главная: index.md
   - Проекты: projects.md
