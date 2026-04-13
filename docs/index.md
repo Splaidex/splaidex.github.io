@@ -121,3 +121,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 800);
 });
 </script>
+<div id="hero-sub" style="max-width:760px; margin: 0 auto 4rem auto; text-align:center; opacity:0; transition: opacity 1s ease 3s; ">
+  <p style="font-family:'Rajdhani',sans-serif; font-size:1.3rem; color:#aaaaaa;">
+    Создаю Python-инструменты с GUI, ботов и автоматизацию.<br>
+    Если нужен результат — <a href="about/" style="color:#cc0000;">пиши</a>.
+  </p>
+  <a href="projects/" style="
+    display:inline-block; margin-top:1rem;
+    padding: 0.6rem 2rem;
+    border: 1px solid #cc0000;
+    color: #cc0000;
+    font-family:'Share Tech Mono',monospace;
+    text-decoration:none;
+    transition: all 0.2s;
+    box-shadow: 0 0 12px #cc000033;
+  ">[ смотреть проекты ]</a>
+</div>
+
+<script>
+  setTimeout(() => {
+    document.getElementById('hero-sub').style.opacity = '1';
+  }, 100);
+</script>
