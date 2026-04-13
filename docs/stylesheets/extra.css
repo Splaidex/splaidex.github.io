@@ -63,7 +63,7 @@ hr {
   background-color: #000000 !important;
 }
 .t-btn::after {
-  content: '] ◀';
+  content: '◀';
   margin-left: 0.3rem;
   opacity: var(--arrow-opacity, 1);
   transition: opacity 0s;
