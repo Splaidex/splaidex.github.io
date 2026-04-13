@@ -99,13 +99,16 @@ hide:
 
 <script>
 function typeText(elementId, text, speed, callback) {
- let arrowVisible = true;
-setInterval(() => {
-  arrowVisible = !arrowVisible;
-  document.querySelectorAll('.t-arrow').forEach(el => {
-    el.style.opacity = arrowVisible ? '1' : '0';
-  });
-}, 800);
+  let i = 0;
+  const el = document.getElementById(elementId);
+  const interval = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      if (callback) callback();
+    }
+  }, speed);
 }
 
 function hideCursor(id) {
@@ -118,14 +121,13 @@ function showEl(id) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Синхронное мигание стрелок
   let arrowVisible = true;
-setInterval(() => {
-  arrowVisible = !arrowVisible;
-  document.querySelectorAll('.t-btn').forEach(el => {
-    el.style.setProperty('--arrow-opacity', arrowVisible ? '1' : '0');
-  });
-}, 800);
+  setInterval(() => {
+    arrowVisible = !arrowVisible;
+    document.querySelectorAll('.t-arrow').forEach(el => {
+      el.style.opacity = arrowVisible ? '1' : '0';
+    });
+  }, 800);
 
   setTimeout(() => {
     typeText('cmd1', 'whoami', 80, () => {
