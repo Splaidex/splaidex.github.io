@@ -95,6 +95,27 @@ hide:
 @keyframes blink {
   50% { opacity: 0; }
 }
+@media (max-width: 600px) {
+  #terminal {
+    margin: 2rem 1rem;
+    padding: 1rem;
+  }
+
+  .t-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .t-btn {
+    font-size: 0.9rem;
+    justify-content: center;
+  }
+
+  .t-line, .t-output, .t-highlight {
+    font-size: 0.85rem !important;
+    word-break: break-word;
+  }
+}
 </style>
 
 <script>
