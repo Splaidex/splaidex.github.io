@@ -83,13 +83,6 @@ hide:
 
 .t-btn:hover {
   color: #ffffff !important;
-}
-
-.t-btn::before { content: '['; margin-right: 0.3rem; }
-.t-btn::after { content: '] ◀'; margin-left: 0.3rem; }
-
-.t-btn:hover {
-  color: #ffffff !important;
   border-color: #ff6666 !important;
   box-shadow: 0 0 16px #cc000088;
 }
