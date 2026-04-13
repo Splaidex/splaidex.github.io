@@ -18,6 +18,14 @@
   display: none !important;
 }
 
+.md-nav--secondary .md-nav__link--active {
+  display: none !important;
+}
+
+.md-nav--secondary {
+  display: none !important;
+}
+
 body {
   font-family: 'Rajdhani', sans-serif;
 }
