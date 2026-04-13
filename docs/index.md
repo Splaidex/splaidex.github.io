@@ -71,14 +71,18 @@ hide:
   font-family: 'Share Tech Mono', monospace;
   font-size: 1rem;
   color: #ff6666 !important;
-  border: 1px solid #ff666644 !important;
+  border: none !important;
   padding: 0.4rem 1.2rem;
   text-decoration: none !important;
   background: transparent;
-  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: color 0.2s;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.t-btn:hover {
+  color: #ffffff !important;
 }
 
 .t-btn::before { content: '['; margin-right: 0.3rem; }
@@ -126,12 +130,12 @@ function showEl(id) {
 document.addEventListener('DOMContentLoaded', function() {
   // Синхронное мигание стрелок
   let arrowVisible = true;
-  setInterval(() => {
-    arrowVisible = !arrowVisible;
-    document.querySelectorAll('.t-arrow').forEach(el => {
-      el.style.opacity = arrowVisible ? '1' : '0';
-    });
-  }, 800);
+setInterval(() => {
+  arrowVisible = !arrowVisible;
+  document.querySelectorAll('.t-btn').forEach(el => {
+    el.style.setProperty('--arrow-opacity', arrowVisible ? '1' : '0');
+  });
+}, 800);
 
   setTimeout(() => {
     typeText('cmd1', 'whoami', 80, () => {
