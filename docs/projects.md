@@ -5,8 +5,8 @@ hide:
 
 # Проекты
 
-{% set data = load_yaml("projects.yml") %}
-{% for project in data.projects %}
+{% set data = config.extra.projects %}
+{% for project in data %}
 <div class="project-card">
   <div class="project-header">
     <h2>{{ project.name }}</h2>
