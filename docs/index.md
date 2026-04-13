@@ -17,8 +17,8 @@ hide:
     <p class="t-line" id="line3" style="display:none"><span class="t-prompt">splaidex@portfolio:~$</span> <span class="t-cmd" id="cmd3"></span><span class="t-cursor" id="cur3">█</span></p>
     <div id="output3" style="display:none">
       <div class="t-buttons">
-        <a href="projects/" class="t-btn"><span class="t-arrow">▶</span> Проекты</a>
-        <a href="about/" class="t-btn"><span class="t-arrow">▶</span> Обо мне</a>
+        <a href="projects/" class="t-btn">Проекты <span class="t-arrow">◀</span></a>
+        <a href="about/" class="t-btn">Обо мне <span class="t-arrow">◀</span></a>
       </div>
     </div>
   </div>
@@ -74,20 +74,19 @@ hide:
   border: 1px solid #ff666644 !important;
   padding: 0.4rem 1.2rem;
   text-decoration: none !important;
-  background: #1a0000;
-  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  background: transparent;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.t-btn::before { content: '['; }
-.t-btn::after { content: ']'; }
+.t-btn::before { content: '['; margin-right: 0.3rem; }
+.t-btn::after { content: ']'; margin-left: 0.3rem; }
 
 .t-btn:hover {
   color: #ffffff !important;
   border-color: #ff6666 !important;
-  background: #cc0000;
   box-shadow: 0 0 16px #cc000088;
 }
 
