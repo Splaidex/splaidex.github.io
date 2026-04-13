@@ -14,7 +14,7 @@
   color: #cc0000 !important;
 }
 
-.md-path {
+.md-nav__link--active {
   display: none !important;
 }
 
