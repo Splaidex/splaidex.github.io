@@ -22,6 +22,15 @@ theme:
 plugins:
   - search
   - macros
+  - i18n:
+      default_language: ru
+      languages:
+        ru:
+          name: Русский
+          build: true
+        en:
+          name: English
+          build: true
 
 nav:
   - Главная: index.md
