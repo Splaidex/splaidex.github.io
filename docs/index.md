@@ -99,16 +99,13 @@ hide:
 
 <script>
 function typeText(elementId, text, speed, callback) {
-  let i = 0;
-  const el = document.getElementById(elementId);
-  const interval = setInterval(() => {
-    el.textContent += text[i];
-    i++;
-    if (i >= text.length) {
-      clearInterval(interval);
-      if (callback) callback();
-    }
-  }, speed);
+ let arrowVisible = true;
+setInterval(() => {
+  arrowVisible = !arrowVisible;
+  document.querySelectorAll('.t-arrow').forEach(el => {
+    el.style.opacity = arrowVisible ? '1' : '0';
+  });
+}, 800);
 }
 
 function hideCursor(id) {
