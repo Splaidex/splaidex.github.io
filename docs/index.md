@@ -17,8 +17,8 @@ hide:
     <p class="t-line" id="line3" style="display:none"><span class="t-prompt">splaidex@portfolio:~$</span> <span class="t-cmd" id="cmd3"></span><span class="t-cursor" id="cur3">█</span></p>
     <div id="output3" style="display:none">
       <div class="t-buttons">
-        <a href="projects/" class="t-btn"><span class="t-arrow" id="arrow1">▶</span> Проекты</a>
-        <a href="about/" class="t-btn"><span class="t-arrow" id="arrow2">▶</span> Обо мне</a>
+        <a href="projects/" class="t-btn"><span class="t-arrow">▶</span> Проекты</a>
+        <a href="about/" class="t-btn"><span class="t-arrow">▶</span> Обо мне</a>
       </div>
     </div>
   </div>
@@ -75,11 +75,14 @@ hide:
   padding: 0.4rem 1.2rem;
   text-decoration: none !important;
   background: #1a0000;
-  transition: all 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
+.t-btn::before { content: '['; }
+.t-btn::after { content: ']'; }
 
 .t-btn:hover {
   color: #ffffff !important;
@@ -88,22 +91,12 @@ hide:
   box-shadow: 0 0 16px #cc000088;
 }
 
-.t-btn:hover .t-arrow {
-  animation: none;
-  color: #ffffff;
-}
-
 .t-arrow {
   color: #ff6666;
-  animation: blink-arrow 0.8s step-end infinite;
   font-size: 0.8rem;
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
-}
-
-@keyframes blink-arrow {
   50% { opacity: 0; }
 }
 </style>
@@ -132,6 +125,15 @@ function showEl(id) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Синхронное мигание стрелок
+  let arrowVisible = true;
+  setInterval(() => {
+    arrowVisible = !arrowVisible;
+    document.querySelectorAll('.t-arrow').forEach(el => {
+      el.style.opacity = arrowVisible ? '1' : '0';
+    });
+  }, 800);
+
   setTimeout(() => {
     typeText('cmd1', 'whoami', 80, () => {
       hideCursor('cur1');
