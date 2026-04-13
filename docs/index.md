@@ -17,8 +17,8 @@ hide:
     <p class="t-line" id="line3" style="display:none"><span class="t-prompt">splaidex@portfolio:~$</span> <span class="t-cmd" id="cmd3"></span><span class="t-cursor" id="cur3">█</span></p>
     <div id="output3" style="display:none">
       <div class="t-buttons">
-        <a href="projects/" class="t-btn">Проекты <span class="t-arrow">◀</span></a>
-        <a href="about/" class="t-btn">Обо мне <span class="t-arrow">◀</span></a>
+        <a href="projects/" class="t-btn">Проекты</a>
+        <a href="about/" class="t-btn">Обо мне</a>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ hide:
 }
 
 .t-btn::before { content: '['; margin-right: 0.3rem; }
-.t-btn::after { content: ']'; margin-left: 0.3rem; }
+.t-btn::after { content: '] ◀'; margin-left: 0.3rem; }
 
 .t-btn:hover {
   color: #ffffff !important;
