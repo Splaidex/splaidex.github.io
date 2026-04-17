@@ -1,1 +1,0 @@
-# splaidex.github.io
