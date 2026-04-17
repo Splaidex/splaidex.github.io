@@ -68,10 +68,10 @@ plugins:
 - search
 - macros
 - i18n:
-    default_language: ru
+    docs_structure: suffix
     languages:
-    - default: true
-      locale: ru
+    - locale: ru
+      default: true
       name: Русский
     - locale: en
       name: English
