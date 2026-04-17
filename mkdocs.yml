@@ -68,13 +68,17 @@ plugins:
 - search
 - macros
 - i18n:
-    default_language: ru
+    docs_structure: suffix
     languages:
-    - default: true
-      locale: ru
+    - locale: ru
+      default: true
       name: Русский
     - locale: en
       name: English
+      nav_translations:
+        Главная: Home
+        Проекты: Projects
+        Обо мне: About
 site_author: SplaidEX
 site_description: Коллекция моих полезных Python-скриптов
 site_name: Python Портфолио — SplaidEX
