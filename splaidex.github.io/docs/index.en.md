@@ -8,18 +8,18 @@ hide:
   <div id="terminal-body">
     <p class="t-line"><span class="t-prompt">splaidex@portfolio:~$</span> <span class="t-cmd" id="cmd1"></span><span class="t-cursor" id="cur1">█</span></p>
     <div id="output1" style="display:none">
- <p class="t-output t-highlight">Python-разработчик. Vibe-coder. Строю инструменты.</p>
+      <p class="t-output t-highlight">Python developer. Vibe-coder. I build tools.</p>
     </div>
     <p class="t-line" id="line2" style="display:none"><span class="t-prompt">splaidex@portfolio:~$</span> <span class="t-cmd" id="cmd2"></span><span class="t-cursor" id="cur2">█</span></p>
     <div id="output2" style="display:none">
- <p class="t-output t-highlight">PyQt6 · Telegram-боты · API · CUDA · Автоматизация</p>
+      <p class="t-output t-highlight">PyQt6 · Telegram bots · API · CUDA · Automation</p>
     </div>
     <p class="t-line" id="line3" style="display:none"><span class="t-prompt">splaidex@portfolio:~$</span> <span class="t-cmd" id="cmd3"></span><span class="t-cursor" id="cur3">█</span></p>
     <div id="output3" style="display:none">
- <div class="t-buttons">
- <a href="projects/" class="t-btn">[ Проекты ] <span class="t-arrow">◀</span></a>
- <a href="about/" class="t-btn">[ Обо мне ] <span class="t-arrow">◀</span></a>
- </div>
+      <div class="t-buttons">
+        <a href="projects/" class="t-btn">[ Projects ] <span class="t-arrow">◀</span></a>
+        <a href="about/" class="t-btn">[ About ] <span class="t-arrow">◀</span></a>
+      </div>
     </div>
   </div>
 </div>
@@ -126,7 +126,7 @@ function typeText(elementId, text, speed, callback) {
     el.textContent += text[i];
     i++;
     if (i >= text.length) {
- clearInterval(interval);
+      clearInterval(interval);
       if (callback) callback();
     }
   }, speed);
@@ -146,28 +146,28 @@ document.addEventListener('DOMContentLoaded', function() {
   setInterval(() => {
     arrowVisible = !arrowVisible;
     document.querySelectorAll('.t-arrow').forEach(el => {
- el.style.opacity = arrowVisible ? '1' : '0';
+      el.style.opacity = arrowVisible ? '1' : '0';
     });
   }, 800);
 
   setTimeout(() => {
     typeText('cmd1', 'whoami', 80, () => {
- hideCursor('cur1');
- showEl('output1');
- setTimeout(() => {
- showEl('line2');
+      hideCursor('cur1');
+      showEl('output1');
+      setTimeout(() => {
+        showEl('line2');
         typeText('cmd2', 'cat skills.txt', 80, () => {
- hideCursor('cur2');
- showEl('output2');
- setTimeout(() => {
- showEl('line3');
- typeText('cmd3', 'ls ./portfolio', 80, () => {
+          hideCursor('cur2');
+          showEl('output2');
+          setTimeout(() => {
+            showEl('line3');
+            typeText('cmd3', 'ls ./portfolio', 80, () => {
               hideCursor('cur3');
- showEl('output3');
- });
- }, 400);
- });
- }, 400);
+              showEl('output3');
+            });
+          }, 400);
+        });
+      }, 400);
     });
   }, 800);
 });
