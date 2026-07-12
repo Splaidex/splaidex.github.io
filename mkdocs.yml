@@ -1,7 +1,19 @@
 extra:
+  project_categories:
+  - id: data
+    title: Данные и API
+    title_en: Data & API
+  - id: automation
+    title: Автоматизация
+    title_en: Automation
+  - id: media
+    title: Медиа
+    title_en: Media
   projects:
   - description: Парсер изображений из Steam Community по названию игры
     description_en: Image parser for the Steam Community based on game title
+    category: data
+    image: /assets/projects/steam-xtractor.png
     features:
     - Поиск игры прямо внутри приложения
     - Подключение через Steam API
@@ -14,11 +26,19 @@ extra:
     - Creating folders for each game
     - No upload limits
     - GUI with animations using PyQt6
+    code: |
+      def download_game_images(appid: int, save_dir: Path) -> None:
+          urls = fetch_community_images(appid)
+          save_dir.mkdir(parents=True, exist_ok=True)
+          for i, url in enumerate(urls, start=1):
+              save_image(url, save_dir / f"{i}.jpg")
     github: ''
     name: SteamParser
     stack: PyQt6, Steam API, Python
   - description: Генератор JSON-файлов из CSV с автодокументацией
     description_en: JSON File Generator from CSV with Auto-Documentation
+    category: automation
+    image: /assets/projects/json-generator.png
     features:
     - Загрузка CSV — на выходе готовый JSON
     - Уникальные ключи при каждой генерации
@@ -31,11 +51,20 @@ extra:
     - Array support
     - Automatically creates an .md file containing the key decryption
     - Custom file name via the GUI
+    code: |
+      def csv_to_json(csv_path: Path, out_path: Path) -> dict:
+          rows = list(csv.DictReader(csv_path.open(encoding="utf-8")))
+          for row in rows:
+              row["id"] = uuid.uuid4().hex[:8]
+          out_path.write_text(json.dumps(rows, ensure_ascii=False, indent=2))
+          return rows
     github: ''
     name: JsonGenerator
     stack: PyQt6, Python, CSV/JSON
   - description: Инструмент для удаления вотермарок с видео
     description_en: A tool for removing watermarks from videos
+    category: media
+    image: /assets/projects/wmcut.png
     features:
     - Превью видео прямо в приложении
     - Выделение зоны мышкой
@@ -46,6 +75,12 @@ extra:
     - Selecting an area with the mouse
     - Multiple selection of cleaning zones
     - GUI on PyQt6
+    code: |
+      def clean_regions(frame: np.ndarray, boxes: list[tuple]) -> np.ndarray:
+          mask = np.zeros(frame.shape[:2], dtype=np.uint8)
+          for x, y, w, h in boxes:
+              mask[y:y + h, x:x + w] = 255
+          return cv2.inpaint(frame, mask, 5, cv2.INPAINT_TELEA)
     github: ''
     name: WMCut
     stack: PyQt6, Python, OpenCV
