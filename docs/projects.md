@@ -165,13 +165,25 @@ hide:
   font-size: 0.9rem;
 }
 
-.project-code {
-  margin-bottom: 1rem;
-  border: 1px solid #cc000033;
+.md-typeset details.project-code {
+  margin: 0 0 1rem;
+  border: 1px solid #cc000033 !important;
+  border-radius: 0;
   background: #050000;
+  box-shadow: none;
+  font-size: inherit;
 }
 
-.project-code summary {
+.md-typeset .project-code > summary {
+  background: transparent !important;
+  border: none !important;
+}
+
+.md-typeset .project-code > summary::after {
+  display: none;
+}
+
+.md-typeset .project-code > summary {
   cursor: pointer;
   padding: 0.5rem 0.8rem;
   font-family: 'Share Tech Mono', monospace;
@@ -185,13 +197,20 @@ hide:
   display: none;
 }
 
-.project-code summary::before {
+.md-typeset .project-code > summary::before {
   content: '▶ ';
+  position: static;
+  background: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  width: auto;
+  height: auto;
   font-size: 0.7rem;
 }
 
-.project-code[open] summary::before {
+.md-typeset .project-code[open] > summary::before {
   content: '▼ ';
+  transform: none;
 }
 
 .project-code summary:hover {

@@ -13,7 +13,7 @@ extra:
   - description: Парсер изображений из Steam Community по названию игры
     description_en: Image parser for the Steam Community based on game title
     category: data
-    image: /assets/projects/steam-xtractor.png
+    image: /assets/projects/steam-xtractor.svg
     features:
     - Поиск игры прямо внутри приложения
     - Подключение через Steam API
@@ -38,7 +38,7 @@ extra:
   - description: Генератор JSON-файлов из CSV с автодокументацией
     description_en: JSON File Generator from CSV with Auto-Documentation
     category: automation
-    image: /assets/projects/json-generator.png
+    image: /assets/projects/json-generator.svg
     features:
     - Загрузка CSV — на выходе готовый JSON
     - Уникальные ключи при каждой генерации
@@ -64,7 +64,7 @@ extra:
   - description: Инструмент для удаления вотермарок с видео
     description_en: A tool for removing watermarks from videos
     category: media
-    image: /assets/projects/wmcut.png
+    image: /assets/projects/wmcut.svg
     features:
     - Превью видео прямо в приложении
     - Выделение зоны мышкой
