@@ -10,61 +10,172 @@ extra:
     title: Медиа
     title_en: Media
   projects:
-  - description: Парсер изображений из Steam Community по названию игры
-    description_en: Image parser for the Steam Community based on game title
-    category: data
-    image: /assets/projects/steam-xtractor.png
+  - name: Dupdel
+    category: media
+    stack: PyQt6, Pillow, ImageHash
+    images:
+    - /assets/projects/dupdel/1.webp
+    - /assets/projects/dupdel/2.webp
+    - /assets/projects/dupdel/3.webp
+    - /assets/projects/dupdel/4.webp
+    description: Находит визуальные дубликаты фотографий в папке — даже после ресайза, пережатия или смены формата — и помогает быстро удалить лишние копии.
+    description_en: Finds visually duplicate photos in a folder — even after resizing, recompression or format change — and helps remove the extra copies fast.
     features:
-    - Поиск игры прямо внутри приложения
-    - Подключение через Steam API
-    - Создание папок для каждой игры
-    - Без лимитов на выгрузку
-    - GUI с анимациями на PyQt6
+    - Сравнение по перцептивному хешу (pHash), порог сходства на ползунке
+    - Сканирование в фоновом потоке с прогрессом и отменой
+    - 'Две карточки рядом: разрешение, вес, формат, метка «Лучше качество»'
+    - Удаление в один клик или всех дублей сразу — файлы уходят в корзину
+    - Горячие клавиши, drag & drop папки, интерфейс RU / EN
     features_en:
-    - Search for games right within the app
-    - Connecting via the Steam API
-    - Creating folders for each game
-    - No upload limits
-    - GUI with animations using PyQt6
+    - Perceptual hash (pHash) comparison with a similarity slider
+    - Background scanning with progress and cancel
+    - 'Side-by-side cards: resolution, size, format, “Better quality” badge'
+    - One-click delete or remove all duplicates at once — files go to the Recycle Bin
+    - Hotkeys, folder drag & drop, RU / EN interface
     code: |
-      def download_game_images(appid: int, save_dir: Path) -> None:
-          urls = fetch_community_images(appid)
-          save_dir.mkdir(parents=True, exist_ok=True)
-          for i, url in enumerate(urls, start=1):
-              save_image(url, save_dir / f"{i}.jpg")
-    github: ''
-    name: SteamParser
-    stack: PyQt6, Steam API, Python
-  - description: Генератор JSON-файлов из CSV с автодокументацией
-    description_en: JSON File Generator from CSV with Auto-Documentation
+      # сравнение pHash: число различающихся бит = расстояние Хэмминга
+      for i in range(n):
+          hi = hashes[i]
+          for j in range(i + 1, n):
+              d = (hi ^ hashes[j]).bit_count()
+              if d <= self.threshold:
+                  found.append((infos[i], infos[j], d))
+
+      found.sort(key=lambda p: p[2])  # самые похожие — первыми
+  - name: JsonGen
     category: automation
-    image: /assets/projects/json-generator.png
+    stack: PyQt6, JSON, CSV
+    images:
+    - /assets/projects/jsongen/1.webp
+    - /assets/projects/jsongen/2.webp
+    - /assets/projects/jsongen/3.webp
+    description: 'Генератор JSON-каталогов (моды, скины, карты): вставляешь колонки данных — получаешь готовую структуру с обфускацией ключей и README.'
+    description_en: 'JSON catalog generator (mods, skins, maps): paste data columns and get a ready structure with obfuscated keys and a README.'
     features:
-    - Загрузка CSV — на выходе готовый JSON
-    - Уникальные ключи при каждой генерации
-    - Поддержка массивов
-    - Автоматически создаёт .md с расшифровкой ключей
-    - Кастомное имя файла через GUI
+    - Поле на каждый ключ, одна строка — один объект
+    - Живой предпросмотр JSON с подсветкой синтаксиса
+    - Импорт CSV с автоопределением разделителя
+    - Обфускация ключей, «мусорные» поля и README с расшифровкой
+    - Числа, флаги isNew / isTop, массивы картинок, свои ключи
     features_en:
-    - 'Upload CSV — Output: JSON'
-    - Unique keys are generated each time
-    - Array support
-    - Automatically creates an .md file containing the key decryption
-    - Custom file name via the GUI
+    - One field per key, one line — one object
+    - Live JSON preview with syntax highlighting
+    - CSV import with delimiter auto-detection
+    - Key obfuscation, junk fields and a README with the key map
+    - Numbers, isNew / isTop flags, image arrays, custom keys
     code: |
-      def csv_to_json(csv_path: Path, out_path: Path) -> dict:
-          rows = list(csv.DictReader(csv_path.open(encoding="utf-8")))
-          for row in rows:
-              row["id"] = uuid.uuid4().hex[:8]
-          out_path.write_text(json.dumps(rows, ensure_ascii=False, indent=2))
-          return rows
-    github: ''
-    name: JsonGenerator
-    stack: PyQt6, Python, CSV/JSON
+      def random_key(rng=random, length=10):
+          return "".join(rng.choices(string.ascii_lowercase + string.digits, k=length))
+
+      # обфускация: настоящее имя ключа → случайное, расшифровка уходит в README.md
+      out_name = {c.name: (self.key_map[c.name] if obfuscate else c.name) for c in keys}
+  - name: Переместить
+    name_en: Peremestit
+    category: automation
+    stack: PyQt6, CSV, QThread
+    images:
+    - /assets/projects/peremestit/1.webp
+    - /assets/projects/peremestit/2.webp
+    - /assets/projects/peremestit/3.webp
+    description: 'Переносит или копирует файлы по списку из CSV: собирает нужные файлы из большого архива в одну папку.'
+    description_en: 'Moves or copies files listed in a CSV: collects the needed files from a large archive into one folder.'
+    features:
+    - Сам определяет кодировку, разделитель, заголовок и колонку с именами
+    - Ищет файлы по пути, относительно папок и по имени во всех подпапках
+    - Проверка списка без изменений и таблица статусов с фильтрами
+    - Перемещение или копирование, отмена последней операции
+    - Отчёт в CSV со статусом каждой строки
+    features_en:
+    - Auto-detects encoding, delimiter, header and the file-name column
+    - Finds files by path, relative to folders, or by name in all subfolders
+    - Dry-run check and a status table with filters
+    - Move or copy, undo the last operation
+    - CSV report with the status of every row
+    code: |
+      def read_table(path):
+          """Угадывает кодировку и разделитель. Без разделителя — одна колонка."""
+          raw = open(path, "rb").read()
+          for enc in ("utf-8-sig", "cp1251"):
+              try:
+                  text = raw.decode(enc)
+                  break
+              except UnicodeDecodeError:
+                  continue
+          try:
+              delim = csv.Sniffer().sniff(text[:8192], delimiters=",;\t|").delimiter
+          except csv.Error:
+              delim = None
+          lines = text.splitlines()
+          return list(csv.reader(lines, delimiter=delim)) if delim else [[l] for l in lines]
+  - name: OLX Monitor
+    category: data
+    stack: PyQt6, requests, BeautifulSoup
+    images:
+    - /assets/projects/olx-monitor/1.webp
+    - /assets/projects/olx-monitor/2.webp
+    description: Следит за поисковыми запросами на OLX и сразу сообщает о новых объявлениях — со звуком и уведомлением в трее.
+    description_en: Watches OLX search queries and instantly reports new listings — with a sound and a tray notification.
+    features:
+    - Любое число поисков OLX с фильтрами, включение галочкой
+    - Стоп-слова и настраиваемый интервал проверки
+    - 'Новые объявления списком: «Перейти» или «Пропустить»'
+    - Работа в трее и автозапуск вместе с Windows
+    - Светлая и тёмная тема, цветовые акценты, RU / UK / EN
+    features_en:
+    - Any number of OLX searches with filters, toggled by checkbox
+    - Stop words and adjustable check interval
+    - 'New listings feed: “Open” or “Skip”'
+    - Runs in the tray, autostarts with Windows
+    - Light and dark themes, accent colors, RU / UK / EN
+    code: |
+      def get_offers(url: str) -> dict:
+          resp = requests.get(url, headers=HEADERS, timeout=15)
+          resp.raise_for_status()
+          soup = BeautifulSoup(resp.text, "html.parser")
+          offers = {}
+          for card in soup.select('[data-cy="l-card"]'):
+              ad_id = card.get("id") or card.get("data-id")
+              link = card.find("a", href=True)
+              title = card.find(["h6", "h3", "p"])
+              offers[str(ad_id)] = {
+                  "title": title.get_text(strip=True) if title else "Без названия",
+                  "href": urljoin("https://www.olx.ua", link["href"]) if link else "",
+              }
+          return offers
+  - name: SteamParser
+    category: data
+    stack: PySide6, requests, BeautifulSoup
+    images:
+    - /assets/projects/steam-parser/1.webp
+    description: Скачивает все пользовательские скриншоты игры из Steam Community по App ID.
+    description_en: Downloads all user screenshots of a game from the Steam Community by App ID.
+    features:
+    - Постраничный обход раздела скриншотов игры
+    - Загрузка в 10 потоков, картинки в максимальном разрешении
+    - Без лимитов на количество, без повторов
+    - Лог загрузки и остановка в любой момент
+    features_en:
+    - Paginates through the game's screenshot section
+    - 10-thread download, images in full resolution
+    - No download limits, no duplicates
+    - Download log and stop at any moment
+    code: |
+      executor = ThreadPoolExecutor(max_workers=10)
+      while not self._stop:
+          html = session.get(page_url(page), timeout=30).json().get("results_html", "")
+          imgs = BeautifulSoup(html, "html.parser").select("img.apphub_CardContentPreviewImage")
+          if not imgs:
+              break
+          for img in imgs:
+              url = img["srcset"].split(",")[-1].split()[0]  # самое большое разрешение
+              if url not in seen:
+                  seen.add(url)
+                  executor.submit(fetch, idx, url)
+                  idx += 1
+          page += 1
   - description: Инструмент для удаления вотермарок с видео
     description_en: A tool for removing watermarks from videos
     category: media
-    image: /assets/projects/wmcut.png
     features:
     - Превью видео прямо в приложении
     - Выделение зоны мышкой
@@ -84,6 +195,8 @@ extra:
     github: ''
     name: WMCut
     stack: PyQt6, Python, OpenCV
+    images:
+    - /assets/projects/wmcut.svg
   social:
   - icon: fontawesome/brands/instagram
     link: https://www.instagram.com/splaidex_python

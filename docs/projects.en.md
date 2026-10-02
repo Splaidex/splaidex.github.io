@@ -5,32 +5,112 @@ hide:
 
 # Projects
 
-{% set data = config.extra.projects %}
-{% for project in data %}
+{% set lang = i18n_page_locale %}
+{% set categories = config.extra.project_categories %}
+{% set projects = config.extra.projects %}
+
+<div class="project-nav">
+{% for cat in categories %}<a href="#{{ cat.id }}">{{ cat.title_en if lang == 'en' and cat.title_en else cat.title }}</a>{% endfor %}
+</div>
+
+{% for cat in categories %}
+{% set cat_projects = projects | selectattr('category', 'equalto', cat.id) | list %}
+{% if cat_projects %}
+<h2 id="{{ cat.id }}" class="category-title">{{ cat.title_en if lang == 'en' and cat.title_en else cat.title }}</h2>
+<div class="projects-grid">
+{% for project in cat_projects %}
+{% set description = project.description_en if lang == 'en' and project.description_en else project.description %}
+{% set features = project.features_en if lang == 'en' and project.features_en else project.features %}
+{% set pname = project.name_en if lang == 'en' and project.name_en else project.name %}
 <div class="project-card">
+  {% if project.images %}
+  <div class="project-shot">
+    <img class="shot-main" src="{{ project.images[0] }}" alt="{{ pname }} — screenshot" loading="lazy">
+  </div>
+  {% if project.images | length > 1 %}
+  <div class="shot-thumbs">
+    {% for img in project.images %}<button type="button" class="shot-thumb{% if loop.first %} active{% endif %}" data-src="{{ img }}"><img src="{{ img }}" alt="" loading="lazy"></button>{% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
   <div class="project-header">
-    <h2>{{ project.name }}</h2>
+    <h3>{{ pname }}</h3>
     <span class="project-stack">{{ project.stack }}</span>
   </div>
-  <p class="project-desc">{{ project.description_en }}</p>
+  <p class="project-desc">{{ description }}</p>
   <ul class="project-features">
-    {% for feature in project.features_en %}
+    {% for feature in features %}
     <li>{{ feature }}</li>
     {% endfor %}
   </ul>
+  {% if project.code %}
+  <details class="project-code">
+    <summary>{{ 'Code example' if lang == 'en' else 'Пример кода' }}</summary>
+    <pre><code>{{ project.code | e }}</code></pre>
+  </details>
+  {% endif %}
   {% if project.github %}
-  <a href="{{ project.github }}" class="project-link" target="_blank">[ GitHub →]</a>
+  <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener">[ GitHub →]</a>
   {% endif %}
 </div>
 {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
 
 <style>
+.project-nav {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.project-nav a {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #cc0000;
+  text-decoration: none !important;
+  border: 1px solid #cc000044;
+  padding: 0.3rem 0.9rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.project-nav a:hover {
+  border-color: #cc0000;
+  color: #ffffff;
+}
+
+.category-title {
+  font-family: 'Share Tech Mono', monospace;
+  color: #cc0000 !important;
+  border-bottom: 1px solid #cc000044;
+  padding-bottom: 0.6rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 1rem !important;
+}
+
+.category-title::after {
+  display: none !important;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 .project-card {
   border: 1px solid #cc000033;
   padding: 1.5rem;
-  margin-bottom: 2rem;
   background: #0a0000;
   transition: border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
@@ -38,27 +118,74 @@ hide:
   box-shadow: 0 0 20px #cc000022;
 }
 
+.project-shot {
+  margin: -1.5rem -1.5rem 1.2rem -1.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid #cc000033;
+  background: #000000;
+}
+
+.project-shot img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.shot-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin: -0.4rem 0 1.1rem;
+}
+
+.shot-thumb {
+  flex: 1;
+  max-width: 25%;
+  padding: 0;
+  border: 1px solid #cc000033;
+  background: #000;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.shot-thumb img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.shot-thumb:hover, .shot-thumb.active {
+  opacity: 1;
+  border-color: #cc0000;
+}
+
 .project-header {
   display: flex;
   align-items: baseline;
   gap: 1rem;
+  flex-wrap: wrap;
   margin-bottom: 0.5rem;
 }
 
-.project-header h2 {
+.project-header h3 {
   margin: 0 !important;
 }
 
-.project-header h2::after {
+.project-header h3::after {
   display: none !important;
 }
 
 .project-stack {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #cc0000;
   border: 1px solid #cc000044;
   padding: 0.1rem 0.5rem;
+  white-space: nowrap;
 }
 
 .project-desc {
@@ -74,6 +201,74 @@ hide:
 
 .project-features li {
   margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.md-typeset details.project-code {
+  margin: 0 0 1rem;
+  border: 1px solid #cc000033 !important;
+  border-radius: 0;
+  background: #050000;
+  box-shadow: none;
+  font-size: inherit;
+}
+
+.md-typeset .project-code > summary {
+  background: transparent !important;
+  border: none !important;
+}
+
+.md-typeset .project-code > summary::after {
+  display: none;
+}
+
+.md-typeset .project-code > summary {
+  cursor: pointer;
+  padding: 0.5rem 0.8rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #ff6666;
+  user-select: none;
+  list-style: none;
+}
+
+.project-code summary::-webkit-details-marker {
+  display: none;
+}
+
+.md-typeset .project-code > summary::before {
+  content: '▶ ';
+  position: static;
+  background: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  width: auto;
+  height: auto;
+  font-size: 0.7rem;
+}
+
+.md-typeset .project-code[open] > summary::before {
+  content: '▼ ';
+  transform: none;
+}
+
+.project-code summary:hover {
+  color: #ffffff;
+}
+
+.project-code pre {
+  margin: 0;
+  padding: 0.8rem;
+  overflow-x: auto;
+  border-top: 1px solid #cc000033;
+}
+
+.project-code code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #dddddd;
+  white-space: pre;
 }
 
 .project-link {
@@ -82,9 +277,23 @@ hide:
   text-decoration: none !important;
   border: none !important;
   transition: color 0.2s;
+  margin-top: auto;
 }
 
 .project-link:hover {
   color: #ffffff !important;
 }
 </style>
+
+<script>
+document.querySelectorAll('.project-card').forEach(function (card) {
+  var main = card.querySelector('.shot-main');
+  card.querySelectorAll('.shot-thumb').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      main.src = btn.dataset.src;
+      card.querySelectorAll('.shot-thumb').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+});
+</script>
