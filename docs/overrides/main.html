@@ -2,12 +2,20 @@
 
 {% block extrahead %}
 {{ super() }}
+<script>
+  try {
+    if (sessionStorage.getItem('sx-intro')) document.documentElement.classList.add('no-intro');
+    sessionStorage.setItem('sx-intro', '1');
+  } catch (e) {}
+</script>
 <style>
+  .no-intro #loader { display: none !important; }
+
   #loader {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: #000000;
+    background: #09090b;
     z-index: 99999;
     display: flex;
     align-items: center;
@@ -18,15 +26,15 @@
   #loader-line {
     width: 0%;
     height: 2px;
-    background: #cc0000;
+    background: #ef4444;
     position: absolute;
     top: 50%;
-    box-shadow: 0 0 12px #cc0000;
+    box-shadow: 0 0 12px #ef4444;
     transition: width 0.6s ease;
   }
 
   #loader-text {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     color: #ffffff;
     font-size: 2rem;
     letter-spacing: 0.3em;
@@ -35,7 +43,7 @@
   }
 
   #loader-text span {
-    color: #cc0000;
+    color: #ef4444;
   }
 
   @keyframes fadeIn {
@@ -45,17 +53,21 @@
 {% endblock %}
 
 {% block content %}
+{% set slug = page.file.src_uri.split('/')[-1].split('.')[0] %}
 <div id="loader">
   <div id="loader-line"></div>
   <div id="loader-text">Splaid<span>EX</span></div>
 </div>
+<div class="page page--{{ slug }}">
 {{ super() }}
+</div>
 
 <script>
   window.addEventListener('load', function() {
     const line = document.getElementById('loader-line');
     const loader = document.getElementById('loader');
 
+    if (!loader || getComputedStyle(loader).display === 'none') return;
     line.style.width = '100%';
 
     setTimeout(function() {
@@ -64,7 +76,7 @@
       setTimeout(function() {
         loader.style.display = 'none';
       }, 500);
-    }, 900);
+    }, 700);
   });
 </script>
 {% endblock %}
