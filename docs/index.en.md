@@ -27,7 +27,7 @@ hide:
 <section class="home-section reveal">
 <div class="stats">
   <div class="stat"><span class="stat-num">3+</span><span class="stat-label">years of Python</span></div>
-  <div class="stat"><span class="stat-num">3</span><span class="stat-label">desktop apps</span></div>
+  <div class="stat"><span class="stat-num">6</span><span class="stat-label">desktop apps</span></div>
   <div class="stat"><span class="stat-num">11+</span><span class="stat-label">technologies in the stack</span></div>
 </div>
 </section>
@@ -45,11 +45,11 @@ hide:
 <section class="home-section reveal">
 <h2 class="section-title"><span>//</span> Featured projects</h2>
 <div class="featured">
-{% for project in config.extra.projects %}
+{% for project in config.extra.projects[:3] %}
   <a class="featured-card" href="projects/#{{ project.category }}">
-    {% if project.image %}<img src="{{ project.image }}" alt="{{ project.name }}" loading="lazy">{% endif %}
+    {% if project.images %}<img src="{{ project.images[0] }}" alt="{{ project.name }}" loading="lazy">{% endif %}
     <div class="featured-body">
-      <h3>{{ project.name }}</h3>
+      <h3>{{ project.name_en or project.name }}</h3>
       <p>{{ project.description_en if project.description_en else project.description }}</p>
       <span class="featured-stack">{{ project.stack }}</span>
       <span class="featured-more">details →</span>
@@ -257,6 +257,9 @@ hide:
 .featured-card img {
   width: 100%;
   display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
   border-bottom: 1px solid #cc000033;
 }
 

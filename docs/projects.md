@@ -21,14 +21,20 @@ hide:
 {% for project in cat_projects %}
 {% set description = project.description_en if lang == 'en' and project.description_en else project.description %}
 {% set features = project.features_en if lang == 'en' and project.features_en else project.features %}
+{% set pname = project.name_en if lang == 'en' and project.name_en else project.name %}
 <div class="project-card">
-  {% if project.image %}
+  {% if project.images %}
   <div class="project-shot">
-    <img src="{{ project.image }}" alt="{{ project.name }} — screenshot" loading="lazy">
+    <img class="shot-main" src="{{ project.images[0] }}" alt="{{ pname }} — screenshot" loading="lazy">
+  </div>
+  {% if project.images | length > 1 %}
+  <div class="shot-thumbs">
+    {% for img in project.images %}<button type="button" class="shot-thumb{% if loop.first %} active{% endif %}" data-src="{{ img }}"><img src="{{ img }}" alt="" loading="lazy"></button>{% endfor %}
   </div>
   {% endif %}
+  {% endif %}
   <div class="project-header">
-    <h3>{{ project.name }}</h3>
+    <h3>{{ pname }}</h3>
     <span class="project-stack">{{ project.stack }}</span>
   </div>
   <p class="project-desc">{{ description }}</p>
@@ -122,6 +128,39 @@ hide:
 .project-shot img {
   width: 100%;
   display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.shot-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin: -0.4rem 0 1.1rem;
+}
+
+.shot-thumb {
+  flex: 1;
+  max-width: 25%;
+  padding: 0;
+  border: 1px solid #cc000033;
+  background: #000;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.shot-thumb img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.shot-thumb:hover, .shot-thumb.active {
+  opacity: 1;
+  border-color: #cc0000;
 }
 
 .project-header {
@@ -245,3 +284,16 @@ hide:
   color: #ffffff !important;
 }
 </style>
+
+<script>
+document.querySelectorAll('.project-card').forEach(function (card) {
+  var main = card.querySelector('.shot-main');
+  card.querySelectorAll('.shot-thumb').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      main.src = btn.dataset.src;
+      card.querySelectorAll('.shot-thumb').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+});
+</script>
